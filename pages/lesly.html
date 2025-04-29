@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lesly Smart Bot</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .chat p { margin: 10px 0; }
+    input, button { padding: 8px; margin-top: 10px; width: 100%; }
+  </style>
+</head>
+<body>
+  <h3>Hi I’m Lesly 👩🏻‍💼</h3>
+  <p>Enter your Player ID:</p>
+  <input id="playerId" placeholder="e.g. u123" />
+  <button onclick="checkStatus()">Check Status</button>
+  <div id="response"></div>
+
+  <script>
+    async function checkStatus() {
+      const id = document.getElementById("playerId").value.trim();
+      const resDiv = document.getElementById("response");
+      resDiv.innerHTML = "⏳ Checking...";
+
+      try {
+        const res = await fetch(`/api/user/${id}`);
+        const data = await res.json();
+
+        let msg = `Hi ${data.name}!<br>`;
+        msg += `VIP Level: <strong>${data.vip}</strong><br>`;
+        if (data.deposit >= 10) {
+          msg += `✅ You're eligible for rewards.`;
+        } else {
+          msg += `⚠️ Deposit less than SGD 10.`;
+        }
+        resDiv.innerHTML = msg;
+      } catch (err) {
+        resDiv.innerHTML = "❌ Player not found.";
+      }
+    }
+  </script>
+</body>
+</html>
