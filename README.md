@@ -1,3 +1,3 @@
-# Lesly Smart Backend
+# Lesly Smart Backend Upgrade
 
-A deployable backend system for Vercel.
+Includes players page + API endpoints for chatbot integration.
